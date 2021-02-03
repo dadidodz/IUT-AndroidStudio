@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">P222 - TP1</string>
     <string name="textButton">Appuyez ici !</string>
+    <string name="bonjour">Bonjour !!</string>
 </resources>
