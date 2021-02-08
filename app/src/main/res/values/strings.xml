@@ -3,4 +3,5 @@
     <string name="textButton">Appuyez ici !</string>
     <string name="textToastClicButton">Clic</string>
     <string name="textToastBonjour">Bonjour !!</string>
+    <string name="menuinfo">menu</string>
 </resources>
