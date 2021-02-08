@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, R.string.textToastBonjour, Toast.LENGTH_SHORT).show();
 
-        Button button = (Button)findViewById(R.id.button);
+        Button addButton = (Button)findViewById(R.id.button);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), R.string.textToastClicButton, Toast.LENGTH_SHORT).show();
