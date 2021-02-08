@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">P222 - TP1</string>
     <string name="textButton">Appuyez ici !</string>
-    <string name="bonjour">Bonjour !!</string>
+    <string name="textToastClicButton">Clic</string>
+    <string name="textToastBonjour">Bonjour !!</string>
 </resources>
