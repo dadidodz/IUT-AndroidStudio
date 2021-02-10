@@ -3,6 +3,6 @@
     <string name="textButton">Appuyez ici !</string>
     <string name="textToastClicButton">Clic</string>
     <string name="textToastBonjour">Bonjour !!</string>
-    <string name="menuinfo">menu</string>
-    <string name="quitter">quitter</string>
+    <string name="menuinfo">Ajout</string>
+    <string name="quitmenu">Quitter</string>
 </resources>
