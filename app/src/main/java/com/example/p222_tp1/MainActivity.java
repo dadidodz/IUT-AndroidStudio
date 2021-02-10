@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -60,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
         // lie l'adapter à la listeView
         listeV.setAdapter(adapter);
 
-        //Création du boutton
+                //Création du boutton
         Button addButton = (Button)findViewById(R.id.button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clic();
+                Intent intent = new Intent(MainActivity.this, Fenetre.class);
+                startActivity(intent);
             }
         });
     }

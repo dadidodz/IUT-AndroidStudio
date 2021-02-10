@@ -5,4 +5,5 @@
     <string name="textToastBonjour">Bonjour !!</string>
     <string name="menuinfo">Ajout</string>
     <string name="quitmenu">Quitter</string>
+    <string name="titleFenetre">Nouvelle fenêtre</string>
 </resources>
