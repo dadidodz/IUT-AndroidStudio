@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         this.listeValeursDansLaListe = new ArrayList<>();
 
         // Création d'un adapter à partir de la liste
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listeValeursDansLaListe);
+        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, listeValeursDansLaListe);
 
         // lie l'adapter à la listeView
         listeV.setAdapter(adapter);
@@ -67,7 +68,24 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clic();
+            }
+        });
+
+        // Code pour la gestion des clics sur ls items de la liste
+        listeV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Fenetre.class);
+
+                // Récupère la valeur de l'item à la position sur laquelle on a cliqué
+                String valeurItem = (String) parent.getItemAtPosition(position);
+
+                // Fixe un paramètre sous la forme clé-valeur
+                intent.putExtra("letexte", valeurItem);
+
+                //Toast.makeText(MainActivity.this, valeurItem, Toast.LENGTH_SHORT).show();
+
                 startActivity(intent);
             }
         });

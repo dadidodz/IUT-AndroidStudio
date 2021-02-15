@@ -6,4 +6,5 @@
     <string name="menuinfo">Ajout</string>
     <string name="quitmenu">Quitter</string>
     <string name="titleFenetre">Nouvelle fenêtre</string>
+    <string name="texteBoutonRetour">Retour</string>
 </resources>
