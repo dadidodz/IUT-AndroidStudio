@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> listeValeursDansLaListe;
 
     // Création d'un adapter à partir de la liste
-    private ArrayAdapter<String> adapter;
+    private AdapterListeImageTexte adapter;
 
     private void clic(){
         String uniqueId = UUID.randomUUID().toString();
@@ -53,21 +53,26 @@ public class MainActivity extends AppCompatActivity {
 
         this.listeV = (ListView) findViewById(R.id.idListView);
 
-        // Liste des valeurs affchées dans la listeView
         this.listeValeursDansLaListe = new ArrayList<>();
 
+        this.adapter = new AdapterListeImageTexte(this, this.listeValeursDansLaListe);
+
+        // Liste des valeurs affchées dans la listeView
+        //this.listeValeursDansLaListe = new ArrayList<>();
+
         // Création d'un adapter à partir de la liste
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, listeValeursDansLaListe);
+        //this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, listeValeursDansLaListe);
 
         // lie l'adapter à la listeView
         listeV.setAdapter(adapter);
 
-                //Création du boutton
+        //Création du boutton
         Button addButton = (Button)findViewById(R.id.button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 clic();
             }
         });
