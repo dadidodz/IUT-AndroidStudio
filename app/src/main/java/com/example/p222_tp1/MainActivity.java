@@ -15,11 +15,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     // Création d'un adapter à partir de la liste
     private AdapterListeImageTexte adapter;
+
+    private TextView valeur;
+
+    static final String BASE_URL = "https://pokeapi.co/api/v2/";
+
+    Retrofit retrofit;
+    PokemonAPIService monService;
 
     private void clic(){
         String uniqueId = UUID.randomUUID().toString();
@@ -57,6 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
         this.adapter = new AdapterListeImageTexte(this, this.listeValeursDansLaListe);
 
+        this.retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        this.monService = retrofit.create(PokemonAPIService.class);
+
         // Liste des valeurs affchées dans la listeView
         //this.listeValeursDansLaListe = new ArrayList<>();
 
@@ -72,8 +99,38 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Call<JsonElement> call = monService.listPokemons();
+                call.enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        if (response.isSuccessful()){
+                            JsonElement result =response.body();
 
-                clic();
+                            JsonObject jsonGlobal = result.getAsJsonObject();
+
+                            int nbResultats = jsonGlobal.get("count").getAsInt();
+                            Log.v(TAG, "" + nbResultats);
+
+                            JsonArray listePokemons = jsonGlobal.getAsJsonArray("results");
+                            StringBuffer chaine = new StringBuffer();
+                            for (int i=0; i < listePokemons.size(); i++){
+                                JsonElement pokemon = listePokemons.get(i);
+                                chaine.append(pokemon.toString()+"\n");
+                            }
+
+                            valeur.setText(chaine);
+                        } else {
+                            Log.e(TAG, response.errorBody().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+                        Log.e(TAG, t.getMessage());
+                    }
+                });
+
+                //clic();
             }
         });
 
@@ -118,4 +175,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+}
+
+interface PokemonAPIService{
+    // 1er appel possible
+    @GET("pokemon?limit=20&offset=200")
+    Call<JsonElement> listPokemons();
+
+    // 2ème appel possible avec paramètre : IDPOKEMON = id
+    @GET("pokemon/{IDPOKEMON}")
+    Call<JsonElement> getPokemon(@Path("IDPOKEMON") String id);
 }
